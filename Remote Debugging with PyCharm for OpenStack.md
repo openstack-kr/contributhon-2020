@@ -92,8 +92,8 @@ PyCharm professional에서 원격 디버깅 설정하기
         /usr/local/bin/openstack
         ```
 
-    - Parameters: openstack으로 실행할 명령어 인자
-    help, server list...
+    - Parameters: openstack으로 실행할 명령어 인자  
+    help, server list...  
     [https://docs.openstack.org/python-openstackclient/pike/cli/command-list.html](https://docs.openstack.org/python-openstackclient/pike/cli/command-list.html) 참조
     - Environment variables: 
 
