@@ -2,6 +2,8 @@
 
 VSCode에서 openstackclient 원격 디버깅 설정하기
 
+## 로컬 설정
+
 1. VSCode에서 Remote Development 부가기능을 설치한다.
 
    <img width="1099" alt="원격 서버 부가기능" src="https://user-images.githubusercontent.com/9061758/89763897-66544a00-db2e-11ea-9b08-b56001b8a63e.png">
@@ -20,21 +22,29 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
 
    `ssh -i <pem 파일 경로> root@서버주소`
 
-4. 정상적으로 원격지에 접속이 되었다면 서버에 Python 부가기능을 설치해야한다
+## 원격지 설정
+
+1. 정상적으로 원격지에 접속이 되었다면 서버에 Python 부가기능을 설치해야한다
 
    <img width="801" alt="원격지 파이썬 부가기능 설치" src="https://user-images.githubusercontent.com/9061758/89764877-373ed800-db30-11ea-9812-64441373691c.png">
 
-5. 작업을 진행할 OpenStackClient 경로를 선택해 파일을 열어준다.
+2. 원격지에서 작업을 진행할 OpenStackClient 경로를 선택해 열어준다.
 
    <img width="1015" alt="파일 오픈" src="https://user-images.githubusercontent.com/9061758/89763903-681e0d80-db2e-11ea-8e44-8f2420b5da10.png"> 
 
-6. 디버깅 탭에서 create a launch.json file 을 클릭해 launch.json파일을 생성한다
+3. vscode에서 디버깅을 하기위해서는 디버깅 설정파일인 launch.json 파일을 수정해야한다.
+
+   - 해당 파일은 .vscode 폴더안에 있으며 그림처럼 create a lauch.json file 버튼을 클릭후 아무 launch.json 파일을 만들거나 직접 .vscode 폴더 생성 후 launch.json 파일을 생성할수도 있다.
 
    <img width="218" alt="디버깅" src="https://user-images.githubusercontent.com/9061758/89765206-d532a280-db30-11ea-8ef4-dddf0b407c71.png">
 
-7. launch.json파일의 설정 값을 다음 이미지와 같이 바꿔준다
+4. launch.json파일의 설정 값을 다음 이미지와 같이 바꿔준다
 
    <img width="885" alt="설정값" src="https://user-images.githubusercontent.com/9061758/89763894-65bbb380-db2e-11ea-980d-4f953592d3c9.png">
+
+   
+
+   `.vscode/launch.json`
 
    ```json
    {
@@ -75,7 +85,7 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
    }
    ```
 
-8. 이후 브레이크 포인트를 찍고 f5를 눌러 디버깅을 실행해 보면 정상적으로 디버깅이 되는것을 확인할 수 있다.
+5. 이후 브레이크 포인트를 찍고 f5를 눌러 디버깅을 실행해 보면 정상적으로 디버깅이 되는것을 확인할 수 있다.
 
     <img width="1554" alt="디버깅 완료" src="https://user-images.githubusercontent.com/9061758/89763869-5f2d3c00-db2e-11ea-8829-21b1242d4336.png">
 
