@@ -1,9 +1,11 @@
 이번주는 오픈스택을 설치하고 openstackclient 코드를 분석했습니다.
-이 글에서 openstack server list 명령어를 입력했을 때 어떠한 순서로 코드가 진행 되는지 알아보겠습니다. 어떤 코드를 실행하면서 결과를 출력하는지, | ID | Name | Status | Networks | Image | Flavor | 외에 다른 항목들은 어떻게 추가하는지에 대해 이야기해보겠습니다.
+코드와 함께 보려면 다음 링크를 참고하세요. [코드와 함께 편하게 보기](https://medium.com/@wlckd90/openstack-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%B6%84%EC%84%9D%ED%95%98%EA%B8%B0-a6ab2e987500)
+
+openstack server list 명령어를 입력했을 때 어떠한 순서로 코드가 진행 되는지 알아보겠습니다. 어떤 코드를 실행하면서 결과를 출력하는지, | ID | Name | Status | Networks | Image | Flavor | 외에 다른 항목들은 어떻게 추가하는지에 대해 이야기해보겠습니다.
 
 명령어 실행과 출력 예시
 위와 같이 openstack server list를 입력하면 서버 리스트를 볼 수 있습니다. 이 과정을 분석해봅니다.
-openstack 명령어를 사용하므로 이 명령어가 어디에 있는지 알아야합니다. which를 사용하면 이 명령어의 위치를 알 수 있습니다.
+1. openstack 명령어를 사용하므로 이 명령어가 어디에 있는지 알아야합니다. which를 사용하면 이 명령어의 위치를 알 수 있습니다.
 
 openstack 명령어 위치
 파일을 확인해보겠습니다. cat을 사용하면 파일의 내용을 출력할 수 있습니다.
