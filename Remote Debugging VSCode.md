@@ -35,9 +35,11 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
 3. vscode에서 디버깅을 하기위해서는 디버깅 설정파일인 launch.json 파일을 수정해야한다.
 
    - 해당 파일은 .vscode 폴더안에 있으며 그림처럼 create a lauch.json file 버튼을 클릭후 launch.json 파일을 만드는 방법과
-   - 직접 .vscode 폴더 생성 후 launch.json 파일을 생성하는 방법이 있다.
-
    <img width="218" alt="디버깅" src="https://user-images.githubusercontent.com/9061758/89765206-d532a280-db30-11ea-8ef4-dddf0b407c71.png">
+   
+   - 직접 .vscode 폴더 생성 후 launch.json 파일을 생성하는 방법이 있다.
+   <img width="171" alt="vscode" src="https://user-images.githubusercontent.com/9061758/89768143-30b35f00-db36-11ea-9d51-b98ba11ebc4e.png">
+
 
 4. launch.json파일의 설정 값을 다음 이미지와 같이 바꿔준다
 
