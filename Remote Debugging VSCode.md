@@ -18,7 +18,7 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
 
    이때 서버는 <u>root 계정</u>으로 접속해야한다.
 
-   `ssh -i<pem 파일 경로> root@서버주소`
+   `ssh -i <pem 파일 경로> root@서버주소`
 
 4. 정상적으로 원격지에 접속이 되었다면 서버에 Python 부가기능을 설치해야한다
 
