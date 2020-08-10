@@ -10,9 +10,6 @@ PyCharm professional에서 원격 디버깅 설정하기
 
     ~~github repository url: [https://github.com/openstack/python-openstackclient](https://github.com/openstack/python-openstackclient)~~
 
-    ```bash
-    [somedirpath]$ git clone [https://github.com/openstack/python-openstackclient.git](https://github.com/openstack/python-openstackclient.git)
-    ```
 
 여기서부터 시작함.
 
