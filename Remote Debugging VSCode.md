@@ -96,6 +96,17 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
 
    
 
+
+
+## 참고자료
+
+https://joonghyunlee.github.io/remote-debugging-cinder-1
+
+https://www.notion.so/Remote-Debugging-with-PyCharm-for-OpenStack-ceb3c9a708a5437d84df8ba6edd8143c
+
+
+## 추가
+
 * root 사용자로 ssh 로그인 진행하기
 
   ``` shell
@@ -104,12 +115,4 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
   
   ssh-rsa 앞 까지 주석을 지워주면 됨
   ```
-
-
-
-## 참고자료
-
-https://joonghyunlee.github.io/remote-debugging-cinder-1
-
-https://www.notion.so/Remote-Debugging-with-PyCharm-for-OpenStack-ceb3c9a708a5437d84df8ba6edd8143c
 
