@@ -1,6 +1,22 @@
 2020 오픈소스 컨트리뷰톤 오픈스택팀 활동 기록 저장소
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+.. image:: https://readthedocs.org/projects/openstack-kr-contributhon2020/badge/?version=latest
+  :target: https://openstack-kr-contributhon2020.readthedocs.io/ko/latest/?badge=latest
+  :alt: Documentation Status on readthedocs
+
+.. image:: https://github.com/openstack-kr/contributhon-2020/workflows/Azure%20Static%20Web%20Apps%20CI%2FCD/badge.svg
+  :target: https://github.com/openstack-kr/contributhon-2020/actions?query=workflow%3A%22Azure+Static+Web+Apps+CI%2FCD%22
+  :alt: Status on GitHub Actions with Azure Static Web App
+
+.. image:: https://api.netlify.com/api/v1/badges/60db9a9a-4196-4339-adba-06d9762cda25/deploy-status
+  :target: https://app.netlify.com/sites/openstack-kr-contributhon2020/deploys
+  :alt: Netlify Status
+
+.. image:: https://cla-assistant.io/readme/badge/openstack-kr/contributhon-2020
+  :target: https://cla-assistant.io/openstack-kr/contributhon-2020
+  :alt: cla-assistant - signed status
+
 This repository contains contribution activities related with OpenStack
 project led by OpenStack Korea user group mentors and 
 `Contributhon <https://www.oss.kr/contributhon>`__ participants.
