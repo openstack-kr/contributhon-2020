@@ -14,7 +14,7 @@
 
    openstack_helm/index
    myeongchul-chae/index
-   sample/index
+   contributors/index
 
 이 문서에서 검색
 ----------------
