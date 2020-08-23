@@ -13,7 +13,7 @@
    :maxdepth: 2
 
    openstack_helm/index
-   sample/index
+   contributors/index
 
 이 문서에서 검색
 ----------------
