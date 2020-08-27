@@ -7,3 +7,4 @@
 .. toctree::
    :maxdepth: 1
 
+   vscode-setting.rst
