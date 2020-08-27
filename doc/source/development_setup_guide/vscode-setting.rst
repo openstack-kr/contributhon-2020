@@ -9,7 +9,6 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
 
    .. image:: images/install-remote-development.png
 
-
 2. VSCode 좌측 하단에 있는 초록색 버튼을 클릭한 후 Remote-SSH: Connet to Host...를 클릭한다.
 
    .. image:: images/remote-select-button.png
@@ -46,9 +45,6 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
    - 직접 .vscode 폴더 생성 후 launch.json 파일을 생성하는 방법이 있다.
       
       .. image:: images/vscode.png
-
-      
-
 
 4. launch.json파일의 설정 값을 다음 이미지와 같이 바꿔준다
 
@@ -95,16 +91,9 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
       {
          "python.pythonPath": "/usr/bin/python3"
       }
-   
-
 5. 이후 브레이크 포인트를 찍고 f5를 눌러 디버깅을 실행해 보면 정상적으로 디버깅이 되는것을 확인할 수 있다.
 
    .. image:: images/check-debug.png
-   
-
-   
-
-
 
 참고자료
 =========
@@ -112,7 +101,6 @@ VSCode에서 openstackclient 원격 디버깅 설정하기
 https://joonghyunlee.github.io/remote-debugging-cinder-1
 
 https://www.notion.so/Remote-Debugging-with-PyCharm-for-OpenStack-ceb3c9a708a5437d84df8ba6edd8143c
-
 
 추가
 =====
@@ -125,4 +113,3 @@ https://www.notion.so/Remote-Debugging-with-PyCharm-for-OpenStack-ceb3c9a708a543
    root@:~# vim ~/.ssh/authorized_keys
   
   ssh-rsa 앞 까지 주석을 지워주면 됨
-  
