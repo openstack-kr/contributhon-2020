@@ -26,7 +26,7 @@ project led by OpenStack Korea user group mentors and
 
  * 컨트리뷰톤 홈페이지: https://www.oss.kr/contributhon
  * 오픈스택 한국 커뮤니티 페이스북: https://www.facebook.com/groups/openstack.kr
- * rst 문서: http://contributhon-2020.readthedocs.io/
+ * rst 문서: https://openstack-kr-contributhon2020.readthedocs.io
 
 Recommended References
 ======================
