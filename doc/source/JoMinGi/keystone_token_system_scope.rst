@@ -6,7 +6,7 @@ openstack keystone token system all scope 400 error
 
 오픈스택 keystone에서 토큰을 활용할 수 있는 방안은 다음과 같다 `keystone api  <https://docs.openstack.org/api-ref/identity/v3/?expanded=password-authentication-with-scoped-authorization-detail>`_ 
 
-  .. code-block:: json
+  .. code-block:: 
 
     {
         "auth": {
@@ -52,7 +52,7 @@ openstack keystone token system all scope 400 error
 
 또한 token에 대한 권한 확인을 하기 위해서 openstack token issue --debug를 통해 일반적은 token은 어떻게 발급하는지 확인 함 
 
-    .. code-block:: json
+    .. code-block:: 
 
         Using parameters {'username': 'admin', 'project_name': 'admin', 'user_domain_name': 'Default', 'auth_url': 
        'http://controller:5000/v3', 'password': '***', 'project_domain_name': 'Default'}
