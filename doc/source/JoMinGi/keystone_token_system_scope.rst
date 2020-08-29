@@ -154,10 +154,6 @@ argument로 넘어온 project_id는 uri에 있는 project id 라서 if문에서 
         From: Mingi Jo <jomin0613@gmail.com>
         To: openstack-discuss@lists.openstack.org
         Subject: [keystone] openstack token auth scpore system Question
-        Message-ID:
-	<CAFW69vguQN6nLQmnUyd0hzWf=6z4LfTtNt-v_jxe-vyBfL_V4g@mail.gmail.com>
-        Content-Type: text/plain; charset="utf-8"
-
         Hi, I'm studying OpenStack.If you use OpenStack and use it with a
         keystone token on all computers,If there is a project in the endpoint
         URL, the api request cannot be made properly.The error message is
