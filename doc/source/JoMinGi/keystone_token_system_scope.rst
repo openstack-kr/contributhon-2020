@@ -143,7 +143,6 @@ argument로 넘어온 project_id는 uri에 있는 project id 라서 if문에서 
 
     .. code :: 
 
-	
         The authorization scope, including the system (Since v3.10), a project, or a domain (Since v3.4). If multiple scopes are specified in the same request (e.g. project and domain or domain and system) an HTTP 400 Bad Request will be returned, as a token cannot be simultaneously scoped to multiple authorization targets. An ID is sufficient to uniquely identify a project but if a project is specified by name, then the domain of the project must also be specified in order to uniquely identify the project by name. A domain scope may be specified by either the domain’s ID or name with equivalent results.
 
 위와 같은 방법을 사용 시 400 에러가 발생한다고 나와있음 추가적으로 이러한 이슈를 해결해보기 위해서 메일링 리스트를 작성
@@ -156,7 +155,7 @@ argument로 넘어온 project_id는 uri에 있는 project id 라서 if문에서 
         To: openstack-discuss@lists.openstack.org
         Subject: [keystone] openstack token auth scpore system Question
         Message-ID:
-	        <CAFW69vguQN6nLQmnUyd0hzWf=6z4LfTtNt-v_jxe-vyBfL_V4g@mail.gmail.com>
+	<CAFW69vguQN6nLQmnUyd0hzWf=6z4LfTtNt-v_jxe-vyBfL_V4g@mail.gmail.com>
         Content-Type: text/plain; charset="utf-8"
 
         Hi, I'm studying OpenStack.If you use OpenStack and use it with a
