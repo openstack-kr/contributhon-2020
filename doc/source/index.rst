@@ -15,6 +15,7 @@
    development_setup_guide/index
    openstack_helm/index
    myeongchul-chae/index
+   JoMinGi/index
    contributors/index
    youngho_choi/index
 
