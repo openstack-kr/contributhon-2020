@@ -8,4 +8,4 @@ YoungHo Choi
    :maxdepth: 1
 
    sandbox_tutorial_guide.rst
-
+   start_translate.rst
