@@ -9,3 +9,4 @@ YoungHo Choi
 
    sandbox_tutorial_guide.rst
    start_translate.rst
+   first_issue.rst
