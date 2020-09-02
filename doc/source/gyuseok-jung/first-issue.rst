@@ -77,5 +77,5 @@ CPU 8코어 / RAM 16GB / 디스크 160GB 가 필요한 m1.xlarge flavor 로 변�
     ):
     
 확인 결과 flavor가 변경되지 않은 상태에서도 success_status가 active로 나와 위 코드의 리턴값이 true로 나온다.
-이때 만약 정상적으로 flavor가 변경이 되었다면 success_status가 verify_resize로 나오게 된다.
+이때 정상적으로 flavor가 변경이 되었다면 success_status가 verify_resize로 나오게 된다. 
 만약 verify_resize가 아니라 active인 상태에서 flavor가 변경되었는지 아닌지를 확인해 보면 해결이 가능할 것 같다.
