@@ -13,6 +13,7 @@
    :maxdepth: 2
 
    openstack_helm/index
+   hanjoo-cho/index
    myeongchul-chae/index
    contributors/index
 
