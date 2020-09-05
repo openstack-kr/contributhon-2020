@@ -1,7 +1,7 @@
 .. _kyungyong_choi:
 
 ==============================
-vdqvdw/kyungyong_choi/chrm7070
+vdqvdw@naver.com/kyungyong_choi/chrm7070
 ==============================
 
 .. toctree::
