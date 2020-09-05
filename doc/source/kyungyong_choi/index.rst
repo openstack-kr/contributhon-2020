@@ -1,8 +1,8 @@
 .. _kyungyong_choi:
 
-========================================
-vdqvdw@naver.com/kyungyong_choi/chrm7070
-========================================
+==============
+kyungyong choi
+==============
 
 .. toctree::
    :maxdepth: 1
