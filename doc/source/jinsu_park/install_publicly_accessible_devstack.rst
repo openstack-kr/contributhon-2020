@@ -165,3 +165,4 @@ Python interpreter를 설정해줍니다. Script Path는 openstackclient/shell.p
 만약 이 방법을 이용하지 않고, 단순히 remote debugging 만을 이용했다면 virtual env를 이용하거나
 ``openstack client`` 를 재설치하거나 git을 이용하는 등의 다양한 작업에서
 제약이 따랐을 것 같은데, 이 방법으로 DevStack을 설치한 덕에 편리하게 작업을 수행할 수 있었습니다.
+

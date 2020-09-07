@@ -60,9 +60,7 @@ host를 disable 함으로써 availability zone이 not available 하게 만드는
 버그가 재현되지 않았던 이유 추측
 --------------------------------------------
 
-아마도
-
-Nova가 자신이 API를 수행하면서는 AZ의 availability를 체크를 하지만,
+아마도 Nova가 자신이 API를 수행하면서는 AZ의 availability를 체크를 하지만,
 random unhealthy state에 대한 반영은 하지 않을 수도 있겠다는 생각을 했습니다.
 
 따라서 혹시 저와 같이 수행했을 때에도 Bug가 재현되는지, Issue 제기자의 좀 더 자세한
@@ -87,3 +85,4 @@ Issue에 Comment 작성
 
 하지만 꼭 버그 픽스나 merge가 아니더라도 이런 식으로 소소하게 기여를 하다보면,
 점점 큰 기여를 할 수 있는 밑거름이 될 것이라 생각합니다!
+
