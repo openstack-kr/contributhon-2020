@@ -27,20 +27,3 @@ User 정보는 launchpad id, ldap id, github id 순서대로 넣어야 한다.
     }
 
 계정 정보를 채웠다면 tox를 실행해서 정보를 잘 기입했는지 확인하면 된다.
-
-.. code-block:: shell
-
-    {
-        "launchpad_id": "cocahack",
-        "github_id": "cocahack",
-        "zanata_id": "jake_chae",
-        "companies": [
-        {
-            "company_name": "*independent",
-            "end_date": null
-        }
-        ],
-        "user_name": "Myeongchul Chae",
-        "emails": ["cocahack@naver.com", "rncchae@gmail.com"]
-    }
-
