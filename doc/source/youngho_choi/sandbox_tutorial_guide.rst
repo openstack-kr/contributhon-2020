@@ -1,5 +1,5 @@
 =================================================
-Learn the Gerrit Workflow in the Sandbox
+[학습] Learn the Gerrit Workflow in the Sandbox
 =================================================
 
 이 글은 `샌드박스 튜토리얼 문서 <https://docs.opendev.org/opendev/infra-manual/latest/sandbox.html#sandbox>`_ 
