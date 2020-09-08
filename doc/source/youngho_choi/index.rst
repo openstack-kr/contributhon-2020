@@ -14,6 +14,6 @@ YoungHo Choi
 
 openstack contribution 계정 정보
 -------------------------------------------------
-- launchpad id : epicarts
+- launchpad id : `epicarts <https://launchpad.net/~epicarts>`_
 - zanata id : epicarts
-- stackanalytics pr : epicarts
+- stackanalytics pr : https://github.com/stackalytics/default_data/pull/216
