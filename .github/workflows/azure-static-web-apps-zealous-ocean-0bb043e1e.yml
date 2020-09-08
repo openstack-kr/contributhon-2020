@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.repository_owner == 'openstack-kr'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:

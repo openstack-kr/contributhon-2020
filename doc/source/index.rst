@@ -18,11 +18,15 @@
    myeongchul-chae/index
    JoMinGi/index
    contributors/index
+   jinsu_park/index
    youngho_choi/index
    gyuseok-jung/index
    hyeim-yang/index
+   kyungyong_choi/index
+   keonwoo_lee/index
 
 이 문서에서 검색
 ----------------
 
 * :ref:`search`
+
