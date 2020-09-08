@@ -23,3 +23,4 @@ releasenotes/build
 /.aux
 /.fdb_latexmk
 /texput.fls
+/.idea/
