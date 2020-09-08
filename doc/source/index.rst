@@ -12,10 +12,16 @@
 .. toctree::
    :maxdepth: 2
 
+   development_setup_guide/index
    openstack_helm/index
+   hanjoo-cho/index
    myeongchul-chae/index
+   JoMinGi/index
    contributors/index
    jinsu_park/index
+   youngho_choi/index
+   gyuseok-jung/index
+   kyungyong_choi/
 
 이 문서에서 검색
 ----------------
