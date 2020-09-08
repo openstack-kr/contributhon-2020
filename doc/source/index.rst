@@ -21,7 +21,7 @@
    jinsu_park/index
    youngho_choi/index
    gyuseok-jung/index
-   kyungyong_choi/
+   kyungyong_choi/index
 
 이 문서에서 검색
 ----------------
