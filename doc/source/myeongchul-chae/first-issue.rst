@@ -1,6 +1,6 @@
-==============================
-Contribution: 첫 번째 이슈
-==============================
+================================================================================================
+openstack CLI - Create an instance using --image-property filtering not working
+================================================================================================
 
 첫 컨트리뷰트가 될 이슈를 `이것 <https://storyboard.openstack.org/#!/story/2007860>`_ 으로 결정했다.
 
@@ -221,3 +221,46 @@ property라는 단어가 ``openstack image show`` 로 이미지 정보를 볼 �
 그리고 이 두 가지 문제점을 포함한 테스트 케이스 하나를 작성한 다음, gerrit에 리뷰를 작성했다.
 
 - `리뷰 링크 <https://review.opendev.org/#/c/746405/1/openstackclient/compute/v2/server.py>`_
+
+-------------------------
+다른 컨트리뷰터와 논의
+-------------------------
+
+사실 내가 올린 리뷰보다 `먼저 생성된 리뷰 <https://review.opendev.org/#/c/740455/>`_ 가 있었다. 멘토님이 내 리뷰를 보시고 다른 리뷰와 차이점을 언급해 주셨고, 이슈 오너가 이에 반응했다.
+
+이슈 오너는 내 리뷰가 어떤 내용인지 잘 모르는 것 같아 코멘트를 달아 주었다. 먼저 올라간 리뷰는 코드 상 properties 키의 내용을 참조하지 않는다는 문제를 해결했다면, 내 리뷰는 이미지가 여러 개 있을 때 발생하는 문제에 관한 패치였다.
+
+물론 내 코드에도 properties 문제를 해결하는 코드가 있지만, 먼저 올라간 리뷰가 이것을 더 잘 처리한 것 같았다. 코멘트에 네 것이 더 낫다는 말과 함께, 두 리뷰가 같이 머지되어야 스토리를 닫을 수 있다고 적었다.
+
+그는 내가 한 말을 이해하고, 이슈를 메일링 리스트와 IRC에 올려서 같이 머지하자고 말해주었다.
+
+-------------------------------------
+Mailing List에 코드 리뷰 요청
+-------------------------------------
+
+리뷰를 처음 올린 8월 16일로부터 거의 20일 가까이 코드 리뷰를 받지 못하고 있었다.
+
+Mailing List에 코드 리뷰를 부탁하는 메일을 작성하고, 그래도 답이 없다면 IRC에서 직접 논의를 이어 갈 예정이다.
+
+.. code-block:: text
+
+    Myeong Chul Chae <rncchae@gmail.com>
+    오후 8:30 (5분 전)
+    openstack-discuss@lists.openstack.org에게
+
+    Hi. 
+
+    I researched the story 'openstack CLI - Create an instance using 
+    --image-property filtering not working' and modified the code to 
+    solve it.
+
+    This is the issue that I opened. - Link
+
+    And the hyperlink of the story is here.
+
+    In addition, there is a review posted before my review of the same 
+    story, so conflict resolution is necessary.
+
+    Please check the commit message and history of the two reviews 
+    and continue the discussion.
+

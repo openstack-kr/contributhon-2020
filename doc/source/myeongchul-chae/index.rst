@@ -1,4 +1,3 @@
-.. _MyeongChul Chae:
 
 ========================
 MyeongChul Chae
@@ -8,4 +7,5 @@ MyeongChul Chae
    :maxdepth: 1
 
    first-issue.rst
+   stackalytics.rst
 
