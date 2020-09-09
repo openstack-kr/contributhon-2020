@@ -118,7 +118,7 @@ devstack 설치하기
 
 공인 아이피로 접속한 다음 
 
-.. image:: images/sandbox_workflow.png
+.. image:: images/devstack_login_page.png
 
 
 .. code-block:: shell

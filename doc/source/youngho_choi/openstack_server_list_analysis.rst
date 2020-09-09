@@ -41,9 +41,12 @@ tag 5.2.0입니다.
 which를 찍으면 어디서에 실행되었는지 알 수 있습니다. 
 해당 파일을 열어보겠습니다.
 
-.. code-block:: python
+.. code-block:: shell
 
     stack@server1:~$ cat /usr/local/bin/openstack
+
+
+.. code-block:: python
 
     #!/usr/bin/python3.6
     # -*- coding: utf-8 -*-
@@ -58,8 +61,7 @@ openstackclient.shell의 main을 import 하고 있는 것을 볼 수 있습니�
 
 main()으로 직접 가보겠습니다.
 
-
-.. code-block:: python
+.. code-block:: shell
 
     stack@server1:~$ python3
 
@@ -106,7 +108,7 @@ osc_lib.OpenStackShell.run()이 어디에 있는지 찾아보겠습니다.
 
 
 
-.. code-block:: python
+.. code-block:: shell
 
     stack@server1:/usr/local/lib/python3.6/dist-packages/openstackclient$ python3
 
@@ -398,7 +400,7 @@ page_resources.iter_entry_points()로 이동해보겠습니다.
 
 dist객체의 egg_info 정보를 보면 path가 있는 것을 볼 수 있습니다.
 
-.. code-block:: python
+.. code-block:: shell
 
     stack@server1:~$ sudo find /usr/local/lib/python3.6/dist-packages/python_openstackclient-5.2.0.dist-info/ -name "*.*" -type f | xargs grep "server_list"
 
