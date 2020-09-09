@@ -11,6 +11,7 @@ YoungHo Choi
    start_translate.rst
    first_issue.rst
    to_start_using_tox.rst
+   useful_links.rst
 
 openstack contribution 계정 정보
 -------------------------------------------------
