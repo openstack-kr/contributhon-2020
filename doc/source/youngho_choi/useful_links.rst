@@ -144,33 +144,28 @@
 기타
 ------------------------------
 
-OPENDEV 메뉴얼
+1. OPENDEV 메뉴얼
 ------------------------------
 - 개발자 가이드, gerrit workflow 등 코드 컨트리뷰트 방법에 대한 문서
 - https://docs.opendev.org/opendev/infra-manual/latest/index.html
 
 
 
-devstack 설치 문서
+2. devstack 설치 문서
 ----------------------------
 - devstack을 설치방법에 대해 나와있는 문서
 - https://docs.openstack.org/devstack/latest/
 
 
 
-오픈스택 거버넌스
+3. 오픈스택 거버넌스
 ------------------------------
 - 오픈스택을 운영하는 조직 구성에 대해 전반적으로 알 수 있음.
 - http://governance.openstack.org 
 
 
 
-IRC 미팅 일정
+4. IRC 미팅 일정
 ------------------------------
 - 오픈스택에서는 커뮤니케이션에 주로 IRC(인터넷 릴레이 챗)를 사용하는데 이러한 챗 기록들과 채널들을 확인 할 수 있음.
 - http://eavesdrop.openstack.org 
-
-
-
-
-
