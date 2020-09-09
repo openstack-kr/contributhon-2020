@@ -11,6 +11,7 @@ Keonwoo Lee
    Create_instance_on_devstack.rst
    Openstack_Component_Description.rst
    Openstack_CLI.rst
+   Openstack_server_list_trace.rst
 
 openstack contribution 계정 정보
 -------------------------------------------------
