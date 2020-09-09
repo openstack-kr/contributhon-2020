@@ -5,8 +5,6 @@ dongwon_jang
 .. toctree::
    :maxdepth: 1
 
-   test.rst
-
 openstack contribution 계정 정보
 -------------------------------------------------
 - launchpad id : dohan0930_
