@@ -17,4 +17,4 @@ openstack contribution 계정 정보
 -------------------------------------------------
 - launchpad id : `keonwoolee <https://launchpad.net/~keonwoolee>`_ 
 - zanata id : `keonwoo_lee <https://translate.openstack.org/profile/view/keonwoo_lee>`_ 
-- stackanalytics pr : stackalytics/default_data#213
+- stackanalytics pr : `stackalytics/default_data#213 <https://github.com/stackalytics/default_data/pull/213>`_
