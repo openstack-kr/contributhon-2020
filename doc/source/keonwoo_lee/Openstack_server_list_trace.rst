@@ -4,7 +4,7 @@ Openstack server list가 출력되는 과정 Tracing 하기
 
 꼭  source openrc admin 을 해준 뒤, openstack을 실행시켜야 실행이 된다.
 
-.. code-block:: none
+.. code-block:: python
 
    $sudo su- stack
    
@@ -26,7 +26,7 @@ Openstack server list가 출력되는 과정 Tracing 하기
 
 VSCode Remote - SSH 를 사용하기 전에는 아래와 같이 Tracing 하였습니다.
 
-.. code-block:: none
+.. code-block:: python
 
    stack@devstack-master:~/devstack$ whereis openstack
    openstack: /etc/openstack /usr/local/bin/openstack
@@ -70,7 +70,7 @@ Tracing을 위해 자주 사용한 단축키는 아래와 같습니다.
 1.출발 : openstack 명령어
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block: none
+.. code-block: python
 
    stack@devstack-ussuri:~/devstack$ openstack server list
    +--------------------------------------+------+--------+---------------------------------------------------------------------+-------+---------+
@@ -81,7 +81,7 @@ Tracing을 위해 자주 사용한 단축키는 아래와 같습니다.
 
 openstack 이라는 명령어와 Argument는 어떻게 넘어가서 출력되는지 찾으러 떠납니다.
 
-.. code-block:: none
+.. code-block:: python
 
    stack@devstack-master:~/devstack$ whereis openstack
    openstack: /etc/openstack /usr/local/bin/openstack
@@ -94,7 +94,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 /usr/local/bin/openstack
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    #!/usr/bin/python3.6
    # -*- coding: utf-8 -*-
@@ -111,7 +111,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 /usr/local/lib/python3.6/dist-packages/openstackclient/shell.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    def main(argv=None):
       if argv is None:
@@ -130,7 +130,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 /usr/local/lib/python3.6/dist-packages/osc_lib/shell.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class OpenStackShell(app.App):
       def run(self, argv):
@@ -154,7 +154,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 * 이 구문을 자세히 보면 return ret_val을 넘겨주는 것을 알 수 있습니다.
 * 따라서, ret_val에 전달되는 값인 super(OpenStackShell, self).run(argv)의 run 함수에 커서를 두고 F12를 누릅니다.
 
-.. code-block: none
+.. code-block: python
 
    Super : Python의 상속의 개념에서 나오며, 자식클래스가 부모 클래스를 사용할 경우 사용합니다.
    class className(Parent) : 괄호 안에 들어있는 것은 상속받는 부모 입니다.
@@ -162,7 +162,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 /usr/local/lib/python3.6/dist-packages/cliff/app.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class App(object):
       def run(self, argv):
@@ -216,7 +216,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 /usr/local/lib/python3.6/dist-packages/cliff/app.py.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class App(object):
       def run_subcommand(self, argv):
@@ -280,7 +280,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 
 코드가 기니까 중요하지 않은 부분은 설명과 함께 주석으로 처리해서 핵심만 바라봅시다.
 
-.. code-block:: none 
+.. code-block:: python 
 
    try:
       subcommand = self.command_manager.find_command(argv)
@@ -319,7 +319,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 /usr/local/lib/python3.6/dist-packages/osc_lib/command/command.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class Command(command.Command, metaclass=CommandMeta):
       def run(self, parsed_args):
@@ -339,7 +339,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 /usr/local/lib/python3.6/dist-packages/osc_lib/command/command.py.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class Command(command.Command, metaclass=CommandMeta):
       def run(self, parsed_args):
@@ -363,7 +363,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    @six.add_metaclass(abc.ABCMeta)
    class DisplayCommandBase(command.Command):
@@ -384,7 +384,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * https://alphahackerhan.tistory.com/34
 
 
-.. code-block:: none
+.. code-block:: python
 
    [Python에서 자식 클래스 확인]
    Foo.__subclasses__()
@@ -404,7 +404,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    @six.add_metaclass(abc.ABCMeta)
    class DisplayCommandBase(command.Command):
@@ -420,7 +420,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * self.produce_output() 함수를 통해 출력이 됨을 확인할 수 있습니다.
 
 
-.. code-block:: none
+.. code-block:: python
 
    +--------------------------------------+---------+--------+----------------------------------------------------------------------+-------+---------+
    | ID                                   | Name    | Status | Networks                                                             | Image | Flavor  |
@@ -435,7 +435,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    @six.add_metaclass(abc.ABCMeta)
    class DisplayCommandBase(command.Command):
@@ -454,7 +454,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * F11을 누르면 상속받은 Class의 produce_output() function으로 갑니다.
 
 
-.. code-block:: none
+.. code-block:: python
 
    DisplayCommandBase.__subclasses__()
    
@@ -468,7 +468,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 /usr/local/lib/python3.6/dist-packages/cliff/lister.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    @six.add_metaclass(abc.ABCMeta)
    class Lister(display.DisplayCommandBase):
@@ -499,7 +499,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * F12를 눌러 선언을 확인했을 때는 이동하지 않았었습니다. ㅠㅠ.
 
 
-.. code-block:: none
+.. code-block:: python
 
    +--------------------------------------+---------+--------+----------------------------------------------------------------------+-------+---------+
    | ID                                   | Name    | Status | Networks                                                             | Image | Flavor  |
@@ -511,7 +511,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    class TableFormatter(base.ListFormatter, base.SingleFormatter):
       def emit_list(self, column_names, data, stdout, parsed_args):
@@ -542,7 +542,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * 이를 통해서 formatted 라는 곳에 문자열(string)이 들어가 있음을 알 수 있겠습니다.
 
 
-.. code-block:: none
+.. code-block:: python
 
    +--------------------------------------+---------+--------+----------------------------------------------------------------------+-------+---------+
    | ID                                   | Name    | Status | Networks                                                             | Image | Flavor  |
@@ -560,7 +560,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    class TableFormatter(base.ListFormatter, base.SingleFormatter):
       def emit_list(self, column_names, data, stdout, parsed_args):
@@ -591,7 +591,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * 이 때 들어가는 column들은 column_names 라는 argument가 될 것 같네요. 한번 찍어봅시다.
 
 
-.. code-block: none
+.. code-block: python
 
    #DEBUG CONSOLE
    column_names
@@ -604,7 +604,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    class TableFormatter(base.ListFormatter, base.SingleFormatter):
       def add_rows(self, table, column_names, data):
@@ -628,7 +628,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * fisrt_row 라는 곳에 저희가 원하는 데이터가 들어가 있습니다.
 
 
-.. code-block:: none
+.. code-block:: python
 
    first_row
    ('6f91eb30-8687-49d7-8...84887d57f8', '1st_Ins', 'ACTIVE', 'private=10.0.0.53, f...72.24.4.59', '', 'm1.nano')
@@ -645,7 +645,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 그리고 
 
 
-.. code-block:: none
+.. code-block:: python
 
    type(first_row)
    <class 'tuple'>
@@ -654,7 +654,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 저는 여기서 fisrt_row와 column_names에 item을 추가해서 출력시켜 보겠습니다.
 
 
-.. code-block:: none
+.. code-block:: python
    
    first_row += ('Test:)',)
    first_row
@@ -665,7 +665,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.. code-block:: none
+.. code-block:: python
 
    column_names += ("TestL:)",)
    column_names
@@ -686,7 +686,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 "/usr/local/lib/python3.6/dist-packages/cliff/display.py".
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    @six.add_metaclass(abc.ABCMeta)
    class DisplayCommandBase(command.Command):
@@ -704,7 +704,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 /usr/local/lib/python3.6/dist-packages/openstackclient/compute/v2/server.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class ListServer(command.Lister):
       def take_action(self, parsed_args):
@@ -747,7 +747,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 
 ``[Debug Console로 확인한 parsed_args 의 값들]``
 
-.. code-block:: none
+.. code-block:: python
 
    parsed_args
    all_projects:False
@@ -775,7 +775,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 /usr/local/lib/python3.6/dist-packages/novaclient/v2/servers.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class ServerManager(base.BootingManagerWithFind):
    def list(self, detailed=True, search_opts=None, marker=None, limit=None,
@@ -826,7 +826,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * 함수 내용이 길지만, 주석에 대놓고 "Get a list of server" 라고 써져 있습니다.
 * servers=self._list를 통해서 서버 명이 전달됩니다
 
-.. code-block:: none
+.. code-block:: python
 
    result
    [<Server: 1st_Ins>]
@@ -878,7 +878,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * 쫙 긁혀서 나옵니다.
 * 그리고 _info를 보시면 위의 것이 한번 더 정리되어서 아래와 같습니다.
 
-.. code-block:: none
+.. code-block:: python
 
    'hostId':'f0b0f1375254bb6ee4a83c7f4e2ad6331d94f497bb3a9b1848af817a'
    'image':''
@@ -899,7 +899,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 "/usr/local/lib/python3.6/dist-packages/openstackclient/compute/v2/server.py".
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: python
 
    class ListServer(command.Lister):
       def take_action(self, parsed_args):
@@ -919,7 +919,7 @@ F12를 눌르면 아래의 경로로 갑니다.
          		  ) for s in data))
          return table
 
-.. code-block:: none
+.. code-block:: python
 
    table
    0:('ID', 'Name', 'Status', 'Networks', 'Image', 'Flavor')
