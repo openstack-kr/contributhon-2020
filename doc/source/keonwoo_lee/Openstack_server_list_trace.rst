@@ -267,7 +267,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
                   self.LOG.error('Could not clean up: %s', err2)
             if self.options.debug:
                # 'raise' here gets caught and does not exit like we want
-         	   return result
+               return result
          else:
             try:
                self.clean_up(cmd, result, None)
@@ -291,7 +291,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
       #              return 2
       cmd_factory, cmd_name, sub_argv = subcommand
       kwargs = {}
-   ①  if 'cmd_name' in utils.getargspec(cmd_factory.__init__).args:
+      if 'cmd_name' in utils.getargspec(cmd_factory.__init__).args: ①
          kwargs['cmd_name'] = cmd_name
       cmd = cmd_factory(self, self.options, **kwargs)
       result = 1
@@ -307,13 +307,13 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
          # Exception 발생에 대한 처리입니다. 넘기도록 합니다.
          #          except Exception as err:
          #                  return result
-   ②  else:
+      else: ②
          try:
             self.clean_up(cmd, result, None)
-         # Exception 발생에 대한 처리입니다. 넘기도록 합니다.                  
+            # Exception 발생에 대한 처리입니다. 넘기도록 합니다.
             except Exception as err3:  
       return result
-	  
+
 * 가장 먼저 맨 마지막의 return result를 바라봅니다. 함수를 추적하는데 있어서 제일 먼저 바라봐야 할 것은 함수의 Entry와 Exit 입니다.
 * result의 값이 유의미하게 쓰여지는 곳은 result = cmd.run(parsed_args) 입니다.
 * 느낌상 cmd.run이 print 해줄 것 같습니다. 일단 따라갑니다.
@@ -373,8 +373,7 @@ F12를 눌르면 아래의 경로로 갑니다.
       parsed_args = self._run_before_hooks(parsed_args)
       self.formatter = self._formatter_plugins[parsed_args.formatter].obj
       column_names, data = self.take_action(parsed_args)
-      column_names, data = self._run_after_hooks(parsed_args,
-      										(column_names, data))
+      column_names, data = self._run_after_hooks(parsed_args,(column_names, data))
       self.produce_output(parsed_args, column_names, data)
       return 0
 
@@ -414,11 +413,10 @@ F12를 눌르면 아래의 경로로 갑니다.
       parsed_args = self._run_before_hooks(parsed_args)
       self.formatter = self._formatter_plugins[parsed_args.formatter].obj
       column_names, data = self.take_action(parsed_args)
-      column_names, data = self._run_after_hooks(parsed_args,
-      										   (column_names, data))
+      column_names, data = self._run_after_hooks(parsed_args,(column_names, data))
       self.produce_output(parsed_args, column_names, data)
       return 0
-		
+
 * self.produce_output() 함수를 통해 출력이 됨을 확인할 수 있습니다.
 
 
@@ -476,8 +474,7 @@ F12를 눌르면 아래의 경로로 갑니다.
    class Lister(display.DisplayCommandBase):
       def produce_output(self, parsed_args, column_names, data):
          if parsed_args.sort_columns and self.need_sort_by_cliff:
-            indexes = [column_names.index(c) for c in parsed_args.sort_columns
-         			  if c in column_names]
+            indexes = [column_names.index(c) for c in parsed_args.sort_columns if c in column_names]
             if indexes:
                data = sorted(data, key=operator.itemgetter(*indexes))
          (columns_to_include, selector) = self._generate_columns_and_selector(
@@ -487,13 +484,8 @@ F12를 눌르면 아래의 경로로 갑니다.
             # of data that the user has expressed interest in
             # seeing. We have to convert the compress() output to a
             # list so the table formatter can ask for its length.
-            data = (list(self._compress_iterable(row, selector))
-         		   for row in data)
-         self.formatter.emit_list(columns_to_include,
-         					    data,
-         					    self.app.stdout,
-         					    parsed_args,
-         					    )
+            data = (list(self._compress_iterable(row, selector)) for row in data)
+            self.formatter.emit_list(columns_to_include,data,self.app.stdout,parsed_args,)
          return 0
 
 * self.formatter.emit_list 이후 출력이 됩니다.
@@ -517,24 +509,16 @@ F12를 눌르면 아래의 경로로 갑니다.
 
    class TableFormatter(base.ListFormatter, base.SingleFormatter):
       def emit_list(self, column_names, data, stdout, parsed_args):
-         x = prettytable.PrettyTable(
-         	 column_names,
-         	 print_empty=parsed_args.print_empty,
-         )
+         x = prettytable.PrettyTable(column_names,print_empty=parsed_args.print_empty,)
          x.padding_width = 1
-         
          # Add rows if data is provided
          if data:
             self.add_rows(x, column_names, data)
-         
          # Choose a reasonable min_width to better handle many columns on a
          # narrow console. The table will overflow the console width in
          # preference to wrapping columns smaller than 8 characters.
          min_width = 8
-         self._assign_max_widths(
-         	 stdout, x, int(parsed_args.max_width), min_width,
-         	 parsed_args.fit_width)
-         
+         self._assign_max_widths(stdout, x, int(parsed_args.max_width), min_width,parsed_args.fit_width)
          formatted = x.get_string()
          stdout.write(formatted)
          stdout.write('\n')
@@ -566,29 +550,19 @@ F12를 눌르면 아래의 경로로 갑니다.
 
    class TableFormatter(base.ListFormatter, base.SingleFormatter):
       def emit_list(self, column_names, data, stdout, parsed_args):
-         x = prettytable.PrettyTable(
-         umn_names,
-         nt_empty=parsed_args.print_empty,
-         
-         dding_width = 1
-         
-         d rows if data is provided
-         ata:
-         f.add_rows(x, column_names, data)
-         
-         oose a reasonable min_width to better handle many columns on a
-         rrow console. The table will overflow the console width in
-         eference to wrapping columns smaller than 8 characters.
-         width = 8
-         ._assign_max_widths(
-         out, x, int(parsed_args.max_width), min_width,
-         sed_args.fit_width)
-         
-         atted = x.get_string()
-         ut.write(formatted)
-         ut.write('\n')
-         rn
-			
+         x = prettytable.PrettyTable( column_names, print_empty=parsed_args.print_empty, )
+         x.padding_width = 1
+         # Add rows if data is provided if data: self.add_rows(x, column_names, data)
+         # Choose a reasonable min_width to better handle many columns on a
+         # narrow console. The table will overflow the console width in
+         # preference to wrapping columns smaller than 8 characters.
+         min_width = 8
+         self._assign_max_widths( stdout, x, int(parsed_args.max_width), min_width, parsed_args.fit_width)
+         formatted = x.get_string()
+         stdout.write(formatted)
+         stdout.write('\n')
+         return
+
 * x=prettytable.PrettyTable() 에서 +---+ 가 들어가게 이쁘게 테이블을 생성해주는 것 같습니다.
 * 이 때 들어가는 column들은 column_names 라는 argument가 될 것 같네요. 한번 찍어봅시다.
 
@@ -723,21 +697,21 @@ F12를 눌르면 아래의 경로로 갑니다.
             if: parsed_args.no_name_lookup:
             else:
                columns = (
-         			 'ID',
-         			 'Name',
-         			 'Status',
-         			 'Networks',
-         			 'Image Name',
-         			 'Flavor Name',
-         		 )
+                  'ID',
+                  'Name',
+                  'Status',
+                  'Networks',
+                  'Image Name',
+                  'Flavor Name',
+               )
             column_headers = (
-         		 'ID',
-         		 'Name',
-         		 'Status',
-         		 'Networks',
-         		 'Image',
-         		 'Flavor',
-         	 )
+               'ID',
+               'Name',
+               'Status',
+               'Networks',
+               'Image',
+               'Flavor',
+            )
             mixed_case_fields = []
          marker_id = None
    =>    data = compute_client.servers.list(search_opts=search_opts,marker=marker_id,limit=parsed_args.limit)
@@ -780,44 +754,39 @@ F12를 눌르면 아래의 경로로 갑니다.
 .. code-block:: python
 
    class ServerManager(base.BootingManagerWithFind):
-   def list(self, detailed=True, search_opts=None, marker=None, limit=None,
-  			  sort_keys=None, sort_dirs=None):
+   def list(self, detailed=True, search_opts=None, marker=None, limit=None,sort_keys=None, sort_dirs=None):
       """
-  		 Get a list of servers.
-   
-  		 :param detailed: Whether to return detailed server info (optional).
-  		 :param search_opts: Search options to filter out servers which don't
-  			 match the search_opts (optional). The search opts format is a
-  			 dictionary of key / value pairs that will be appended to the query
-  			 string.  For a complete list of keys see:
-  			 https://docs.openstack.org/api-ref/compute/#list-servers
-  		 :param marker: Begin returning servers that appear later in the server
-  					    list than that represented by this server id (optional).
-  		 :param limit: Maximum number of servers to return (optional).
-  					   Note the API server has a configurable default limit.
-  					   If no limit is specified here or limit is larger than
-  					   default, the default limit will be used.
-  					   If limit == -1, all servers will be returned.
-  		 :param sort_keys: List of sort keys
-  		 :param sort_dirs: List of sort directions
-   
-  		 :rtype: list of :class:`Server`
-   
-  		 Examples:
-   
-  		 client.servers.list() - returns detailed list of servers
-   
-  		 client.servers.list(search_opts={'status': 'ERROR'}) -
-  		 returns list of servers in error state.
-   
-  		 client.servers.list(limit=10) - returns only 10 servers
-   
-  		 """
+      Get a list of servers.
+      :param detailed: Whether to return detailed server info (optional).
+      :param search_opts: Search options to filter out servers which don't
+         match the search_opts (optional). The search opts format is a
+         dictionary of key / value pairs that will be appended to the query
+         string.  For a complete list of keys see:
+         https://docs.openstack.org/api-ref/compute/#list-servers
+      :param marker: Begin returning servers that appear later in the server list than that represented by this server id (optional).
+      :param limit: Maximum number of servers to return (optional).
+         Note the API server has a configurable default limit.
+         If no limit is specified here or limit is larger than
+         default, the default limit will be used.
+         If limit == -1, all servers will be returned.
+      :param sort_keys: List of sort keys
+      :param sort_dirs: List of sort directions
+      :rtype: list of :class:`Server`
+
+      Examples:
+      
+      client.servers.list() - returns detailed list of servers
+      
+      client.servers.list(search_opts={'status': 'ERROR'}) -
+      returns list of servers in error state.
+      
+      client.servers.list(limit=10) - returns only 10 servers
+      
+      """
       if search_opts is None:
          search_opts = {}
          ....
-   =>            servers = self._list("/servers%s%s" % (detail, query_string),
-  								  "servers")
+   =>    servers = self._list("/servers%s%s" % (detail, query_string),"servers")
          result.extend(servers)
          result.append_request_ids(servers.request_ids)
       return result
@@ -825,7 +794,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * 함수 내용이 길지만, 주석에 대놓고 "Get a list of server" 라고 써져 있습니다.
 * servers=self._list를 통해서 서버 명이 전달됩니다
 
-.. code-block:: python
+.. code-block:: none
 
    result
    [<Server: 1st_Ins>]
@@ -905,20 +874,18 @@ F12를 눌르면 아래의 경로로 갑니다.
          data = compute_client.servers.list(search_opts=search_opts,marker=marker_id,limit=parsed_args.limit)
          #있는 list를 싹 다 긁어옴
          # 싹다 긁어온거랑, server 에서 가져온거랑 matching 시킴
-         table = (column_headers,
-         		  (utils.get_item_properties(
-         			  s, columns,
-         			  mixed_case_fields=mixed_case_fields,
-         			  formatters={
-         				  'OS-EXT-STS:power_state':
-         					  _format_servers_list_power_state,
-         				  'Networks': _format_servers_list_networks,
-         				  'Metadata': utils.format_dict,
-         			  },
-         		  ) for s in data))
+         table =  (column_headers,
+                  (utils.get_item_properties(
+                     s, columns,
+                     mixed_case_fields=mixed_case_fields,
+                     formatters={'OS-EXT-STS:power_state': _format_servers_list_power_state,
+                        'Networks': _format_servers_list_networks,
+                        'Metadata': utils.format_dict,
+                     },
+                  ) for s in data))
          return table
 
-.. code-block:: python
+.. code-block:: none
 
    table
    0:('ID', 'Name', 'Status', 'Networks', 'Image', 'Flavor')
