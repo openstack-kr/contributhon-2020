@@ -212,8 +212,9 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 * 이 문장에서, arguments가 empty일 때 remainder가 0이 되고 -> interactive_mode=True가 됩니다.
 * 따라서, run_subcommand()로 진입합니다.
 
-/usr/local/lib/python3.6/dist-packages/cliff/app.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+/usr/local/lib/python3.6/dist-packages/cliff/app.py.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
 
@@ -335,8 +336,8 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 
 F12를 눌르면 아래의 경로로 갑니다.
 
-/usr/local/lib/python3.6/dist-packages/osc_lib/command/command.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/python3.6/dist-packages/osc_lib/command/command.py.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
 
@@ -399,8 +400,8 @@ F12를 눌르면 아래의 경로로 갑니다.
 
 마저 진행해보면
 
-/usr/local/lib/python3.6/dist-packages/cliff/display.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/python3.6/dist-packages/cliff/display.py.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: none
@@ -430,8 +431,8 @@ F12를 눌르면 아래의 경로로 갑니다.
 
 * 함수명에 output 이 있는걸로 보아 출력 된다는 것을 예상 할 수 있지만, 표준출력함수(stdout)이 나올 때 까지 좀 더 Tracing 해보도록 합니다.
 
-/usr/local/lib/python3.6/dist-packages/cliff/display.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"/usr/local/lib/python3.6/dist-packages/cliff/display.py"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: none
@@ -555,7 +556,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 3. [실습] Openstack server list Table 변경하여 출력하기
 ------------------------------------------------------------------------------- 
 
-/usr/local/lib/python3.6/dist-packages/cliff/formatters/table.py
+"/usr/local/lib/python3.6/dist-packages/cliff/formatters/table.py"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -599,8 +600,8 @@ F12를 눌르면 아래의 경로로 갑니다.
 
 * self.add_rows 에서 Data를 추가해줄 것 같네요. F11을 눌러 들어가 봅니다
 
-/usr/local/lib/python3.6/dist-packages/cliff/formatters/table.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""/usr/local/lib/python3.6/dist-packages/cliff/formatters/table.py""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: none
@@ -660,7 +661,7 @@ F12를 눌르면 아래의 경로로 갑니다.
    ('6f91eb30-8687-49d7-8...84887d57f8', '1st_Ins', 'ACTIVE', 'private=10.0.0.53, f...72.24.4.59', '', 'm1.nano', 'Test:)')
 
 
-/usr/local/lib/python3.6/dist-packages/cliff/display.py
+""/usr/local/lib/python3.6/dist-packages/cliff/display.py""
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -682,8 +683,8 @@ F12를 눌르면 아래의 경로로 갑니다.
 최종적으로 stdout.write 될 때, 사용 되는 것이 column_names 였기 때문입니다.
 따라서 Display.py 파일부터 tracing Entry로 잡았습니다.
 
-/usr/local/lib/python3.6/dist-packages/cliff/display.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"/usr/local/lib/python3.6/dist-packages/cliff/display.py".
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
 
@@ -895,8 +896,8 @@ F12를 눌르면 아래의 경로로 갑니다.
 
 다시 돌아와서 이후 코드를 진행합니다.
 
-/usr/local/lib/python3.6/dist-packages/openstackclient/compute/v2/server.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"/usr/local/lib/python3.6/dist-packages/openstackclient/compute/v2/server.py".
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
 
