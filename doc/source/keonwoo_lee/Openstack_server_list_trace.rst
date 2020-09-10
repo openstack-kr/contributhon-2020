@@ -4,7 +4,7 @@ Openstack server list가 출력되는 과정 Tracing 하기
 
 꼭  source openrc admin 을 해준 뒤, openstack을 실행시켜야 실행이 된다.
 
-.. code-block:: python
+.. code-block:: none
 
    $sudo su- stack
    
@@ -26,7 +26,7 @@ Openstack server list가 출력되는 과정 Tracing 하기
 
 VSCode Remote - SSH 를 사용하기 전에는 아래와 같이 Tracing 하였습니다.
 
-.. code-block:: python
+.. code-block:: none
 
    stack@devstack-master:~/devstack$ whereis openstack
    openstack: /etc/openstack /usr/local/bin/openstack
@@ -70,7 +70,7 @@ Tracing을 위해 자주 사용한 단축키는 아래와 같습니다.
 1.출발 : openstack 명령어
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block: python
+.. code-block:: none
 
    stack@devstack-ussuri:~/devstack$ openstack server list
    +--------------------------------------+------+--------+---------------------------------------------------------------------+-------+---------+
@@ -81,7 +81,7 @@ Tracing을 위해 자주 사용한 단축키는 아래와 같습니다.
 
 openstack 이라는 명령어와 Argument는 어떻게 넘어가서 출력되는지 찾으러 떠납니다.
 
-.. code-block:: python
+.. code-block:: none
 
    stack@devstack-master:~/devstack$ whereis openstack
    openstack: /etc/openstack /usr/local/bin/openstack
@@ -114,14 +114,14 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 .. code-block:: python
 
    def main(argv=None):
-      if argv is None:
-         argv = sys.argv[1:]
-            if six.PY2:
-               # Emulate Py3, decode argv into Unicode based on locale so that
-               # commands always see arguments as text instead of binary data
-               encoding = locale.getpreferredencoding()
-               if encoding:
-                  argv = map(lambda arg: arg.decode(encoding), argv)
+		if argv is None:
+			argv = sys.argv[1:]
+			if six.PY2:
+				# Emulate Py3, decode argv into Unicode based on locale so that
+				# commands always see arguments as text instead of binary data
+				encoding = locale.getpreferredencoding()
+				if encoding:
+					argv = map(lambda arg: arg.decode(encoding), argv)
       return OpenStackShell().run(argv)
 
 * return 값으로 무엇인가를 넘겨주는 것을 볼 수 있습니다. 이 구문으로부터 출력이 나올것이라 예상하고 run이라는 function 위에서 F12를 눌러줍니다.
@@ -166,7 +166,8 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 
    class App(object):
       def run(self, argv):
-      """Equivalent to the main program for the application.
+      """
+      Equivalent to the main program for the application.
       :param argv: input arguments and options
       :paramtype argv: list of str
       """
@@ -278,9 +279,10 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
          return result
 
 
+
 코드가 기니까 중요하지 않은 부분은 설명과 함께 주석으로 처리해서 핵심만 바라봅시다.
 
-.. code-block:: python 
+.. code-block:: none
 
    try:
       subcommand = self.command_manager.find_command(argv)
@@ -384,7 +386,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * https://alphahackerhan.tistory.com/34
 
 
-.. code-block:: python
+.. code-block:: none
 
    [Python에서 자식 클래스 확인]
    Foo.__subclasses__()
@@ -454,7 +456,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 * F11을 누르면 상속받은 Class의 produce_output() function으로 갑니다.
 
 
-.. code-block:: python
+.. code-block:: none
 
    DisplayCommandBase.__subclasses__()
    
@@ -645,7 +647,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 그리고 
 
 
-.. code-block:: python
+.. code-block:: none
 
    type(first_row)
    <class 'tuple'>
