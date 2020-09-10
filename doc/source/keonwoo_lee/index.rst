@@ -12,6 +12,7 @@ Keonwoo Lee
    Openstack_Component_Description.rst
    Openstack_CLI.rst
    Openstack_server_list_trace.rst
+   Translation_Activity.rst
 
 openstack contribution 계정 정보
 -------------------------------------------------
