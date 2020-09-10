@@ -114,14 +114,14 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
 .. code-block:: python
 
    def main(argv=None):
-		if argv is None:
-			argv = sys.argv[1:]
-			if six.PY2:
-				# Emulate Py3, decode argv into Unicode based on locale so that
-				# commands always see arguments as text instead of binary data
-				encoding = locale.getpreferredencoding()
-				if encoding:
-					argv = map(lambda arg: arg.decode(encoding), argv)
+      if argv is None:
+         argv = sys.argv[1:]
+         if six.PY2:
+            # Emulate Py3, decode argv into Unicode based on locale so that
+            # commands always see arguments as text instead of binary data
+            encoding = locale.getpreferredencoding()
+            if encoding:
+               argv = map(lambda arg: arg.decode(encoding), argv)
       return OpenStackShell().run(argv)
 
 * return 값으로 무엇인가를 넘겨주는 것을 볼 수 있습니다. 이 구문으로부터 출력이 나올것이라 예상하고 run이라는 function 위에서 F12를 눌러줍니다.
@@ -235,7 +235,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
                self.stdout.write('Did you mean one of these?\n')
                for match in fuzzy_matches:
                   self.stdout.write('  %s\n' % match)
-  			   else:
+            else:
                   if self.options.debug:
                   raise
                   else:
@@ -255,27 +255,27 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
             result = cmd.run(parsed_args)
          except Exception as err:
             if self.options.debug:
-         	   self.LOG.exception(err)
+               self.LOG.exception(err)
             else:
-         	   self.LOG.error(err)
+               self.LOG.error(err)
             try:
-         	   self.clean_up(cmd, result, err)
+               self.clean_up(cmd, result, err)
             except Exception as err2:
-         	   if self.options.debug:
+               if self.options.debug:
                   self.LOG.exception(err2)
-         	   else:
+               else:
                   self.LOG.error('Could not clean up: %s', err2)
             if self.options.debug:
-         	   # 'raise' here gets caught and does not exit like we want
+               # 'raise' here gets caught and does not exit like we want
          	   return result
          else:
             try:
-         	   self.clean_up(cmd, result, None)
+               self.clean_up(cmd, result, None)
             except Exception as err3:
-         	   if self.options.debug:
+               if self.options.debug:
                   self.LOG.exception(err3)
-         	   else:
-         	      self.LOG.error('Could not clean up: %s', err3)
+               else:
+                  self.LOG.error('Could not clean up: %s', err3)
          return result
 
 
@@ -289,14 +289,14 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
       # Exception 발생에 대한 처리입니다. 넘기도록 합니다.              
       #          except ValueError as err:
       #              return 2
-	  cmd_factory, cmd_name, sub_argv = subcommand
-	  kwargs = {}
+      cmd_factory, cmd_name, sub_argv = subcommand
+      kwargs = {}
    ①  if 'cmd_name' in utils.getargspec(cmd_factory.__init__).args:
          kwargs['cmd_name'] = cmd_name
-	  cmd = cmd_factory(self, self.options, **kwargs)
-	  result = 1
-	  try:
-	     self.prepare_to_run_command(cmd)
+      cmd = cmd_factory(self, self.options, **kwargs)
+      result = 1
+      try:
+         self.prepare_to_run_command(cmd)
          full_name = (cmd_name
             if self.interactive_mode
             else ' '.join([self.NAME, cmd_name])
@@ -308,7 +308,7 @@ Ctrl + Shift + F 를 사용하여 openstack 명령어가 실행된 파일을 클
          #          except Exception as err:
          #                  return result
    ②  else:
-	     try:
+         try:
             self.clean_up(cmd, result, None)
          # Exception 발생에 대한 처리입니다. 넘기도록 합니다.                  
             except Exception as err3:  
@@ -410,7 +410,7 @@ F12를 눌르면 아래의 경로로 갑니다.
 
    @six.add_metaclass(abc.ABCMeta)
    class DisplayCommandBase(command.Command):
-   	def run(self, parsed_args):
+      def run(self, parsed_args):
       parsed_args = self._run_before_hooks(parsed_args)
       self.formatter = self._formatter_plugins[parsed_args.formatter].obj
       column_names, data = self.take_action(parsed_args)
@@ -445,7 +445,7 @@ F12를 눌르면 아래의 경로로 갑니다.
          self.produce_output(parsed_args, column_names, data)
          return 0
    @abc.abstractmethod
-   	def produce_output(self, parsed_args, column_names, data):
+      def produce_output(self, parsed_args, column_names, data):
          """Use the formatter to generate the output.
          :param parsed_args: argparse.Namespace instance with argument values
          :param column_names: sequence of strings containing names of output columns
@@ -479,7 +479,7 @@ F12를 눌르면 아래의 경로로 갑니다.
             indexes = [column_names.index(c) for c in parsed_args.sort_columns
          			  if c in column_names]
             if indexes:
-         	   data = sorted(data, key=operator.itemgetter(*indexes))
+               data = sorted(data, key=operator.itemgetter(*indexes))
          (columns_to_include, selector) = self._generate_columns_and_selector(
             parsed_args, column_names)
          if selector:
@@ -525,7 +525,7 @@ F12를 눌르면 아래의 경로로 갑니다.
          
          # Add rows if data is provided
          if data:
-         	 self.add_rows(x, column_names, data)
+            self.add_rows(x, column_names, data)
          
          # Choose a reasonable min_width to better handle many columns on a
          # narrow console. The table will overflow the console width in
@@ -615,17 +615,17 @@ F12를 눌르면 아래의 경로로 갑니다.
          # output accordingly.
          data_iter = iter(data)
          try:
-         	 first_row = next(data_iter)
+            first_row = next(data_iter)
          except StopIteration:
-         	 pass
+            pass
          else:
-  		    for value, name in zip(first_row, column_names):
-  		    	 alignment = self.ALIGNMENTS.get(type(value), 'l')
-  		    	 table.align[name] = alignment
-  		    # Now iterate over the data and add the rows.
-  		    table.add_row(_format_row(first_row))
-  		    for row in data_iter:
-  		    	 table.add_row(_format_row(row))
+            for value, name in zip(first_row, column_names):
+               alignment = self.ALIGNMENTS.get(type(value), 'l')
+               table.align[name] = alignment
+            # Now iterate over the data and add the rows.
+            table.add_row(_format_row(first_row))
+            for row in data_iter:
+               table.add_row(_format_row(row))
 
 * fisrt_row 라는 곳에 저희가 원하는 데이터가 들어가 있습니다.
 
@@ -722,7 +722,7 @@ F12를 눌르면 아래의 경로로 갑니다.
          else:
             if: parsed_args.no_name_lookup:
             else:
-         		 columns = (
+               columns = (
          			 'ID',
          			 'Name',
          			 'Status',
@@ -730,7 +730,7 @@ F12를 눌르면 아래의 경로로 갑니다.
          			 'Image Name',
          			 'Flavor Name',
          		 )
-         	 column_headers = (
+            column_headers = (
          		 'ID',
          		 'Name',
          		 'Status',
@@ -738,7 +738,7 @@ F12를 눌르면 아래의 경로로 갑니다.
          		 'Image',
          		 'Flavor',
          	 )
-         	 mixed_case_fields = []
+            mixed_case_fields = []
          marker_id = None
    =>    data = compute_client.servers.list(search_opts=search_opts,marker=marker_id,limit=parsed_args.limit)
 
@@ -782,7 +782,7 @@ F12를 눌르면 아래의 경로로 갑니다.
    class ServerManager(base.BootingManagerWithFind):
    def list(self, detailed=True, search_opts=None, marker=None, limit=None,
   			  sort_keys=None, sort_dirs=None):
-  		 """
+      """
   		 Get a list of servers.
    
   		 :param detailed: Whether to return detailed server info (optional).
@@ -813,17 +813,14 @@ F12를 눌르면 아래의 경로로 갑니다.
   		 client.servers.list(limit=10) - returns only 10 servers
    
   		 """
-  		 if search_opts is None:
-  			 search_opts = {}
-   
-  			 ....
-   
+      if search_opts is None:
+         search_opts = {}
+         ....
    =>            servers = self._list("/servers%s%s" % (detail, query_string),
   								  "servers")
-  			 result.extend(servers)
-  			 result.append_request_ids(servers.request_ids)
-   
-  		 return result
+         result.extend(servers)
+         result.append_request_ids(servers.request_ids)
+      return result
 
 * 함수 내용이 길지만, 주석에 대놓고 "Get a list of server" 라고 써져 있습니다.
 * servers=self._list를 통해서 서버 명이 전달됩니다
