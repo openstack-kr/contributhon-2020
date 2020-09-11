@@ -11,6 +11,6 @@ JoMinGi
 
 openstack contribution 계정 정보
 -------------------------------------------------
-- launchpad id :
-- zanata id :
-- stackanalytics pr :
+- launchpad id : ddorahee123123123
+- zanata id : https://translate.openstack.org/dashboard/?dswid=-7546
+- stackanalytics pr : https://github.com/stackalytics/default_data/pull/208

@@ -116,9 +116,7 @@ openstack keystone token system all scope 400 error
 
 위와 같이 1번째 project를 넣은 경우엔느 정상적으로 잘 생행 되었으며 2번째 경우는 400 error가 마찬가지로 떨어지는것을 확인 함 
 
-============
 원인 분석
-============
 
 원인은 `cinder git <https://github.com/openstack/cinder/blob/master/cinder/api/openstack/wsgi.py#L888>`_ 
 에서 확인 할 수 있음
@@ -168,7 +166,11 @@ argument로 넘어온 project_id는 uri에 있는 project id 라서 if문에서 
         URL: <http://lists.openstack.org/pipermail/openstack-discuss/attachments/20200823/5f1612ec/attachment-0001.html>
 
 이메일을 작성하였고 명확한 답변은 아직 안온상태
-        
+
+2020-09-11 추가
+http://eavesdrop.openstack.org/meetings/keystone/2020/keystone.2020-09-08-16.58.log.html
+
+keystone 미팅에 참석하여 어떻게 문제사항을 수정해야할지 힌트를 얻어 추가적인 코드리뷰가 가능할 것으로 보임
 
 
 
