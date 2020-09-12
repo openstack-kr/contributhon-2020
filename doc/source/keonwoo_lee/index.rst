@@ -15,6 +15,7 @@ Keonwoo Lee
    Translation_Activity.rst
    How to start Openstack.rst
    Learn how contribute to Openstack Community.rst
+   How to fix bug in the gerrit.rst
 
 openstack contribution 계정 정보
 -------------------------------------------------
