@@ -13,6 +13,8 @@ Keonwoo Lee
    Openstack_CLI.rst
    Openstack_server_list_trace.rst
    Translation_Activity.rst
+   How to start Openstack.rst
+   Learn how contribute to Openstack Community.rst
 
 openstack contribution 계정 정보
 -------------------------------------------------
