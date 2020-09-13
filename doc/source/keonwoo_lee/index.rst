@@ -13,6 +13,11 @@ Keonwoo Lee
    Openstack_CLI.rst
    Openstack_server_list_trace.rst
    Translation_Activity.rst
+   How to start Openstack.rst
+   Learn how contribute to Openstack Community.rst
+   How to fix bug in the gerrit.rst
+   How_to_start_Translation_Activity.rst
+   How_to_write_RST_Format.rst
 
 openstack contribution 계정 정보
 -------------------------------------------------
