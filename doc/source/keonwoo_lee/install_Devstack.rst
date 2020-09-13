@@ -2,7 +2,7 @@
 Installation of devstack
 ========================
 
-| 이 글은 2020 OSS Openstack Team 첫 Off-line 모임에서 
+| 이 글은 2020 OSS Openstack Team 첫 Off-line 모임에서
 | 진행한 내용을 토대로 작성되었습니다.
 
 목적
@@ -102,7 +102,7 @@ Installation of devstack
 설치가 완료되면 localhost의 80 port를 이용하여 OpenStack의 DashBoard에 접근할 수 있는데,
 우리는 외부에서 접속하므로 cafe24 vm의 공인IP를 통해 접속합니다.
 
- 
+
 이를 위해 다시 cafe24의 방화벽에 Inbound 정책으로 80/6080번 포트를 추가해줍니다.
 공인아이피로 대쉬보드에 접속해줍니다.
 

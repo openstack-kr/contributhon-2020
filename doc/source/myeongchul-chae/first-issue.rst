@@ -1,5 +1,5 @@
 ================================================================================================
-openstack CLI - Create an instance using --image-property filtering not working
+[이슈] openstack CLI - Create an instance using --image-property filtering not working
 ================================================================================================
 
 첫 컨트리뷰트가 될 이슈를 `이것 <https://storyboard.openstack.org/#!/story/2007860>`_ 으로 결정했다.
@@ -97,24 +97,24 @@ property라는 단어가 ``openstack image show`` 로 이미지 정보를 볼 �
 .. code-block:: python3
 
     def _match_image(image_api, wanted_properties):
-    image_list = image_api.images()
-    images_matched = []
-    for img in image_list:
-        img_dict = {}
-        # exclude any unhashable entries
-        for key, value in img.items():
-            try:
-                set([key, value])
-            except TypeError:
-                pass
+        image_list = image_api.images()
+        images_matched = []
+        for img in image_list:
+            img_dict = {}
+            # exclude any unhashable entries
+            for key, value in img.items():
+                try:
+                    set([key, value])
+                except TypeError:
+                    pass
+                else:
+                    img_dict[key] = value
+            if all(k in img_dict and img_dict[k] == v
+                    for k, v in wanted_properties.items()):
+                images_matched.append(img)
             else:
-                img_dict[key] = value
-        if all(k in img_dict and img_dict[k] == v
-                for k, v in wanted_properties.items()):
-            images_matched.append(img)
-        else:
-            return []
-    return images_matched
+                return []
+        return images_matched
 
 이 함수의 문제점은 --image-property로 명시한 조건과 일치하지 않는 이미지가 존재하면 필터링된 이미지 리스트(위 함수에서는 ``images_matched`` )가 아닌 빈 리스트를 리턴한다는 것이다. 이렇게 되면 --image-property 조건과 일치하는 이미지가 있어도 무시될 가능성이 존재하며, 그 경우가 바로 위에서 재현된 버그와 같은 것이다. 
 
@@ -123,24 +123,23 @@ property라는 단어가 ``openstack image show`` 로 이미지 정보를 볼 �
 .. code-block:: python3
 
     def _match_image(image_api, wanted_properties):
-    image_list = image_api.images()
-    images_matched = []
-    for img in image_list:
-        img_dict = {}
-        # exclude any unhashable entries
-        for key, value in img.items():
-            try:
-                set([key, value])
-            except TypeError:
-                pass
-            else:
-                img_dict[key] = value
-        if all(k in img_dict and img_dict[k] == v
-                for k, v in wanted_properties.items()):
-            images_matched.append(img)
-    return images_matched
+        image_list = image_api.images()
+        images_matched = []
+        for img in image_list:
+            img_dict = {}
+            # exclude any unhashable entries
+            for key, value in img.items():
+                try:
+                    set([key, value])
+                except TypeError:
+                    pass
+                else:
+                    img_dict[key] = value
+            if all(k in img_dict and img_dict[k] == v
+                    for k, v in wanted_properties.items()):
+                images_matched.append(img)
+        return images_matched
 
----------------
 또 다른 문제점
 ---------------
 
@@ -167,29 +166,29 @@ property라는 단어가 ``openstack image show`` 로 이미지 정보를 볼 �
 .. code-block:: python3
 
     def _match_image(image_api, wanted_properties):
-    image_list = image_api.images()
-    images_matched = []
-    for img in image_list:
-        img_dict = {}
-        # exclude any unhashable entries
-        for key, value in img.items():
-            try:
-                set([key, value])
-            except TypeError:
-                pass
-            else:
-                img_dict[key] = value
-        if all(k in img_dict and img_dict[k] == v
-                for k, v in wanted_properties.items()):
-            images_matched.append(img)
-    return images_matched
+        image_list = image_api.images()
+        images_matched = []
+        for img in image_list:
+            img_dict = {}
+            # exclude any unhashable entries
+            for key, value in img.items():
+                try:
+                    set([key, value])
+                except TypeError:
+                    pass
+                else:
+                    img_dict[key] = value
+            if all(k in img_dict and img_dict[k] == v
+                    for k, v in wanted_properties.items()):
+                images_matched.append(img)
+        return images_matched
 
 이 코드에서, ``img`` 오브젝트는 이미지의 여러 프로퍼티를 저장한 딕셔너리였다. 딕셔너리의 키를 순회하면서 하나의 set으로 만들 수 있는 것만 --image-property에 사용할 수 있는 키 값의 대상이 되는 것이었다. 
 
 그런데 앞서 사용한 ``owner_specified.openstack.object`` 프로퍼티는 ``img`` 의 ``properties`` 라는 키에 딕셔너리로 저장된 값 중 하나였다. 따라서 ``properties`` 라는 키에 저장된 프로퍼티는 --image-property 필터에 사용할 수 없었던 것이다.
 
 ------------
-리뷰 작성!
+리뷰 작성
 ------------
 
 두 가지 경우 모두 --image-property가 제대로 동작하지 않는 원인이기 떄문에 둘 다 수정할 필요가 있었다.
@@ -198,25 +197,25 @@ property라는 단어가 ``openstack image show`` 로 이미지 정보를 볼 �
 .. code-block:: python3
 
     def _match_image(image_api, wanted_properties):
-    image_list = image_api.images()
-    images_matched = []
-    for img in image_list:
-        img_dict = {}
-        # exclude any unhashable entries
-        img_dict_items = list(img.items())
-        if img.properties:
-            img_dict_items.extend(list(img.properties.items()))
-        for key, value in img_dict_items:
-            try:
-                set([key, value])
-            except TypeError:
-                pass
-            else:
-                img_dict[key] = value
-        if all(k in img_dict and img_dict[k] == v
-                for k, v in wanted_properties.items()):
-            images_matched.append(img)
-    return images_matched
+        image_list = image_api.images()
+        images_matched = []
+        for img in image_list:
+            img_dict = {}
+            # exclude any unhashable entries
+            img_dict_items = list(img.items())
+            if img.properties:
+                img_dict_items.extend(list(img.properties.items()))
+            for key, value in img_dict_items:
+                try:
+                    set([key, value])
+                except TypeError:
+                    pass
+                else:
+                    img_dict[key] = value
+            if all(k in img_dict and img_dict[k] == v
+                    for k, v in wanted_properties.items()):
+                images_matched.append(img)
+        return images_matched
 
 그리고 이 두 가지 문제점을 포함한 테스트 케이스 하나를 작성한 다음, gerrit에 리뷰를 작성했다.
 
@@ -263,4 +262,133 @@ Mailing List에 코드 리뷰를 부탁하는 메일을 작성하고, 그래도 
 
     Please check the commit message and history of the two reviews 
     and continue the discussion.
+
+------------------------------------------------
+Mailing List 작성 후 코드 리뷰
+------------------------------------------------
+
+Mailing List를 작성한게 효과가 있었는지, 다음 날 바로 코드 리뷰를 받았다.
+
+리뷰어는 내 리뷰를 보기 전에 먼저 올라온 리뷰에 코멘트를 남겼다.
+
+.. image:: img/first-issue-img-01.png
+
+두 리뷰를 비교하면서 내가 수정한 부분이 좀 더 좋다는 평을 받았다.
+
+그러면서 내 리뷰에는 코드를 제거한 부분이 있는데 왜 그렇게 했는지 설명해달라고 요청하는 코멘트를 남겼다.
+
+.. image:: img/first-issue-img-02.png
+
+해당 코드 라인을 제거한 이유는 이미지가 여러 개 있을 때 조건에 맞는 이미지가 있어도 빈 리스트가 반환될 수 있는 문제 때문이었다.
+
+이 내용을 설명하는 코멘트를 달아 주었다.
+
+.. code-block:: text
+
+    If any image does not fit a given condition (--image-property), an empty list is returned.
+
+    If there is an image that meets the conditions, I think it is the right behavior of this method to put it on the list and return it.
+
+    So I'm suggesting that this line should be removed.
+
+이 코멘트를 봤는지, 리뷰어가 다음 날 다른 쪽 리뷰에 내 코드가 더 좋다는 의견을 남겼다.
+
+.. image:: img/first-issue-img-03.png
+
+멘토님을 포함한 다른 리뷰어들이 내가 올린 리뷰를 선택해서 그런지 먼저 리뷰를 올렸던 컨트리뷰터가 내 리뷰로 논의를 이어가자고 양보해주었다. 
+
+.. image:: img/first-issue-img-04.png
+
+LGTM!!
+----------------
+
+드디어 생애 첫 LGTM을 획득했다.
+
+.. image:: img/first-issue-img-06.png
+
+**+2** 를 받고 Merge가 되기까지 얼마 남지 않은 것 같다.
+
+-------------------------------
+추가 요청
+-------------------------------
+
+이전 리뷰의 리뷰어 중 한 명이 ``try-except`` 구문에 로그를 추가하자고 제안했다.
+
+이 제안은 다른 리뷰에 올라온 것이지만, 내 리뷰에서 계속해서 반영해달라는 요청을 받았다.
+
+수정이 필요한 코드는 아래와 같다.
+
+.. code-block:: python3
+
+    for key, value in img.items():
+        try:
+            set([key, value])
+        except TypeError:
+            pass
+        else:
+            img_dict[key] = value
+
+``except TypeError`` 부분에서, 어떤 이유로 에러가 발생했는지 로그를 추가하는 것이 이번 패치의 목표였다.
+
+위의 For 문은 ``--image-property`` 의 값과 이미지가 가지고 있는 프로퍼티의 값을 비교하기 위한 사전 작업이다. ``set()`` 함수를 사용해 ``==`` 연산을 사용할 수 있는 프로퍼티만을 골라내는 작업을 하게 된다.
+
+만약 ``==`` 연산자를 사용할 수 없는(해싱 불가능한) 값이 포함되어 있다면 ``except`` 로 넘어가게 된다.
+
+``except`` 로 흐름이 넘어가게 되는 값의 특성이 위와 같으므로, '비교가 불가능하기 때문에 프로퍼티를 생략한다' 라는 뉘앙스를 가진 로그 문장을 작성해서 커밋했다.
+
+바뀐 코드는 다음과 같다.
+
+.. code-block:: python3
+
+    def _match_image(image_api, wanted_properties):
+        image_list = image_api.images()
+        images_matched = []
+        for img in image_list:
+            img_dict = {}
+
+            # exclude any unhashable entries
+            img_dict_items = list(img.items())
+            if img.properties:
+                img_dict_items.extend(list(img.properties.items()))
+            for key, value in img_dict_items:
+                try:
+                    set([key, value])
+                except TypeError:
+                    if key != 'properties':
+                        LOG.debug('Skipped the \'%s\' attribute. '
+                                    'That cannot be compared. '
+                                    '(image: %s, value: %s)',
+                                    key, img.id, value)
+                    pass
+                else:
+                    img_dict[key] = value
+
+            if all(k in img_dict and img_dict[k] == v
+                    for k, v in wanted_properties.items()):
+                images_matched.append(img)
+
+다른 사람이 작업한 패치에 이어서 커밋하기
+-----------------------------------------
+
+내가 올린 패치에 다른 리뷰어가 이어서 패치를 했기 때문에, ``git pull`` 처럼 패치를 로컬 git 레포지토리에 합칠 필요가 있었다.
+
+그러나 gerrit은 GitHub와는 다른 코드 리뷰 방식을 사용하고 있기 때문에, 본능적으로 ``git pull`` 로 패치를 받으면 안될 것 같다는 느낌을 받았다.
+
+그래서 검색해본 결과, 다음의 `StackOverflow 문서 <https://stackoverflow.com/questions/51743564/pull-patchset-from-gerrit-into-current-branch>`_ 를 찾게 되었다.
+
+거기에는 ``checkout`` 커맨드를 사용하라는 조언이 적혀있었다.
+
+무엇을 사용해야 되는지 알게 되었으니, 패치를 받는 일은 매우 간단했다.
+
+리뷰의 우측 상단에 **Download** 라는 메뉴가 있는데, 거기에서 **Checkout** 이라고 쓰인 커맨드를 복사해 붙여넣기만 하면 패치가 완료된다.
+
+.. image:: img/first-issue-img-05.png
+
+정리해보면 다음과 같다.
+
+1. review 페이지의 **Download** 항목에서 **Checkout** 커맨드를 복사해 로컬 Git 레포지토리에서 실행
+2. 코드 수정 작업
+3. ``git commit --amend`` 로 커밋
+4. ``git review`` 로 작업 업로드
+
 
