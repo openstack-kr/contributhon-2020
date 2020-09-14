@@ -8,4 +8,5 @@ hacking<2.1,>=2.0 # Apache-2.0
 
 sphinx>=2.0.0,!=2.1.0 # BSD
 doc8>=0.8.0 # Apache-2.
-jupyter-sphinx-theme
+jupyter-sphinx-theme==0.0.6
+pygments>=2.6.1
