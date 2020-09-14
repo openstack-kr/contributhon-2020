@@ -442,7 +442,7 @@ for 문에서 namespace 값을 setting합니다.
 
    <summary>
 
-[접기]/[펼치기]
+[더보기]
 
 .. raw:: html
 
@@ -505,8 +505,190 @@ Issue 1 - 구현
 현재에는 ``-c`` 옵션 사용 시 O 뒤에 하나의 A만 인식하여 Namespace의
 column에 넣도록 되어 있습니다.
 
-2) Error 해결
+명령어 ``openstack server list -c ID Name`` 를 실행하면
+``arg_strings_pattern`` 이 ‘OAA’ 가 됩니다.
 
+.. code:: python
+
+   # /usr/lib/python3.6/argparse.py(1788)_parse_known_args()
+
+   1915                        start = start_index + 1
+   1916                        selected_patterns = arg_strings_pattern[start:]
+   1917                        arg_count = match_argument(action, selected_patterns)
+   1918                        stop = start + arg_count
+   1919                        args = arg_strings[start:stop]
+   1920                        action_tuples.append((action, args, option_string))
+   1921                        break
+
+.. code:: python
+
+   # /usr/lib/python3.6/argparse.py(1788)_match_argument()
+
+   2065        def _match_argument(self, action, arg_strings_pattern):
+   2066            # match the pattern for this action to the arg strings
+   2067 ->         nargs_pattern = self._get_nargs_pattern(action)
+   2068            match = _re.match(nargs_pattern, arg_strings_pattern)
+
+.. code:: python
+
+       def _get_nargs_pattern(self, action):
+           # in all examples below, we have to allow for '--' args
+           # which are represented as '-' in the pattern
+           nargs = action.nargs
+
+           # the default (None) is assumed to be a single argument
+           if nargs is None:
+               nargs_pattern = '(-*A-*)'
+
+           # allow zero or one arguments
+           elif nargs == OPTIONAL:
+               nargs_pattern = '(-*A?-*)'
+
+           # allow zero or more arguments
+           elif nargs == ZERO_OR_MORE:
+               nargs_pattern = '(-*[A-]*)'
+
+기존에서는 ``action.nargs`` 가 ``None`` 으로 설정이 되어서
+nargs_pattern이 ``(-*A-*)`` 가 되었습니다.
+
+그래서 ``arg_strings_pattern`` 에서 하나의 ‘O’ 는 하나의 ‘A’ 만
+인식하였던 것입니다.
+
+.. code:: python
+
+   class _AppendAction(Action):
+       def __init__(self,
+                    option_strings,
+                    dest,
+                    nargs=ZERO_OR_MORE,
+                    const=None,
+                    default=None,
+                    type=None,
+                    choices=None,
+                    required=False,
+                    help=None,
+                    metavar=None):
+
+``_AppendAction`` 클래스의 ``nargs`` 변수를 ``None`` 에서
+``ZERO_OR_MORE ('*')`` 로 변경합니다. 이렇게 함으로써 ‘OAA’ , ‘OAAA’ 등
+하나의 ‘O’ 가 다수의 ‘A’ 를 인식할 수 있도록 하였습니다.
+
+``_get_nargs_pattern`` 함수에서 ``action.nargs`` 가 ``ZERO_OR_MORE``
+이기 때문에 최종적인 ``nargs_pattern`` 이 ``'([A]*)`` 가 됩니다.
+
+.. raw:: html
+
+   <details>
+
+.. raw:: html
+
+   <summary>
+
+[더보기]
+
+.. raw:: html
+
+   </summary>
+
+.. raw:: html
+
+   <h5>
+
+nargs_pattern과 arg_strings_pattern의 매칭
+
+.. raw:: html
+
+   </h5>
+
+.. raw:: html
+
+   <pre>
+   > /usr/lib/python3.6/argparse.py(2071)_match_argument()
+   -> if match is None:
+   (Pdb) l
+   2066            # match the pattern for this action to the arg strings
+   2067            nargs_pattern = self._get_nargs_pattern(action)
+   2068            match = _re.match(nargs_pattern, arg_strings_pattern
+   </pre>
+
+.. raw:: html
+
+   <pre>
+   > /usr/lib/python3.6/re.py(169)match()
+   -> def match(pattern, string, flags=0):
+   (Pdb) l
+   164     error = sre_compile.error
+   165
+   166     # --------------------------------------------------------------------
+   167     # public interface
+   168
+   169  -> def match(pattern, string, flags=0):
+   170         """Try to apply the pattern at the start of the string, returning
+   171         a match object, or None if no match was found."""
+   172         return _compile(pattern, flags).match(string)
+   </pre>
+
+.. raw:: html
+
+   <pre>
+   (Pdb) p pattern
+   '([A]*)'
+   (Pdb) p string
+   'AA'
+   (Pdb) p match
+   <_sre.SRE_Match object; span=(0, 2), match='AA'>
+     </pre>
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </details>
+
+2) Namespace의 columns에 리스트로 들어가는 오류 해결
+
+
+**문제**
+
+.. code:: shell
+
+   $ openstack server list -c ID Name
+   No recognized column names in [['ID', 'Name']]. Recognized columns are ('ID', 'Name', ...).
+
+``parse_known_args`` 함수에서 Namespace의 columns 값에 [‘ID’, ‘Name’] 이
+들어가 있어서 이런 오류가 발생하였습니다.
+
+.. code:: python
+
+   Namespace(all_projects=False, changes_before=None, changes_since=None, columns=[['ID', 'Name']], deleted=False, fit_width=False, flavor=None, formatter='table', host=None, image=None, instance_name=None, ip=None, ip6=None, limit=None, locked=False, long=False, marker=None, max_width=0, name=None, name_lookup_one_by_one=False, no_name_lookup=False, noindent=False, print_empty=False, project=None, project_domain=None, quote_mode='nonnumeric', reservation_id=None, sort_columns=[], status=None, unlocked=False, user=None, user_domain=None)
+
+**해결**
+
+.. code:: python
+
+   class _AppendAction(Action):
+       def __call__(self, parser, namespace, values, option_string=None):
+           items = _copy.copy(_ensure_value(namespace, self.dest, []))
+           # items.append(values)
+           for value in values:
+               items.append(value)
+           setattr(namespace, self.dest, items)
+
+.. code:: shell
+
+   (Pdb) p values
+   ['ID', 'Name']
+
+기존에는 ``_AppendAction`` 클래스의 nargs가 ``None`` 이였기 때문에
+values가 문자열이였습니다.
+
+하지만 nargs를 ``ZERO_OR_MORE`` 로 수정했기 때문에 values에 리스트가
+됩니다.
+
+그래서 리스트를 순회하여 요소들을 items에 넣어줘 해당 오류를
+해결하였습니다.
 
 3) 결론
 
@@ -519,5 +701,196 @@ column에 넣도록 되어 있습니다.
 Issue 2 - 구현
 --------------
 
-1) ``openstack server show dev`` 명령어를 분석해 더 많은 column을 선택할 수 있도록 구현해야 합니다.
+멘토님의 피드백대로 ``--all`` 옵션은 삭제하였습니다.
 
+``-c`` 옵션으로 column을 선택할 때, column은 출력되는 column 중에서
+선택해야만 합니다. 하지만 본 이슈는 ``-c`` 옵션을 통해 더 많은 column을
+선택할 수 있어야 합니다. 그래서 ``-c`` 옵션이 없을 때에는 기존과 같이
+동작을 하고, ``-c`` 옵션이 있다면 모든 출력할 수 있는 정보를 column과
+column_headers에 저장하도록 구현했습니다. 이를 통해 ``-c`` 옵션으로
+선택할 수 있는 column의 수를 늘렸습니다.
+
+.. code:: python
+
+   columns = (
+                   'ID',
+                   'Name',
+                   'Status',
+                   'Networks',
+                   'Image Name',
+                   'Flavor Name',
+                   'Flavor ID',
+                   'OS-DCF:diskConfig',
+                   'OS-EXT-AZ:availability_zone',
+                   'OS-EXT-SRV-ATTR:host',
+                   'OS-EXT-SRV-ATTR:hypervisor_hostname',
+                   'OS-EXT-SRV-ATTR:instance_name', 
+                   'OS-EXT-STS:power_state', 
+                   'OS-EXT-STS:task_state', 
+                   'OS-EXT-STS:vm_state', 
+                   'OS-SRV-USG:launched_at', 
+                   'OS-SRV-USG:terminated_at',
+                   'user_id',
+                   'project_id',
+                   'accessIPv4',
+                   'accessIPv6',
+                   'config_drive',
+                   'created',
+                   'hostId',
+                   'key_name',
+                   'progress',
+                   'security_groups',
+                   'status',
+                   'updated',
+                   'os-extended-volumes:volumes_attached',
+                   'properties',
+               )
+               column_headers = (
+                   'ID',
+                   'Name',
+                   'Status',
+                   'Networks',
+                   'Image',
+                   'Flavor',
+                   'Flavor ID',
+                   'Disk Config',
+                   'Availability Zone',
+                   'Host',
+                   'Hypervisor Hostname',
+                   'Instance Name', 
+                   'Power State', 
+                   'Task State', 
+                   'Vm State', 
+                   'Launched At', 
+                   'Terminated At',
+                   'User ID',
+                   'Project ID',
+                   'AccessIPv4',
+                   'AccessIPv6',
+                   'Config Drive',
+                   'Created',
+                   'Host ID',
+                   'Key Name',
+                   'Progress',
+                   'Security Groups',
+                   'Status',
+                   'Updated',
+                   'Volumes',
+                   'Properties',
+               )
+               mixed_case_fields = [
+                   'OS-DCF:diskConfig',
+                   'OS-EXT-AZ:availability_zone',
+                   'OS-EXT-SRV-ATTR:host',
+                   'OS-EXT-SRV-ATTR:hypervisor_hostname',
+                   'OS-EXT-SRV-ATTR:instance_name', 
+                   'OS-EXT-STS:power_state', 
+                   'OS-EXT-STS:task_state', 
+                   'OS-EXT-STS:vm_state', 
+                   'OS-SRV-USG:launched_at', 
+                   'OS-SRV-USG:terminated_at',
+               ]
+
+``-c`` 옵션으로 선택할 수 있는 column은
+``openstack server show [instanceName]`` 로 출력되는 정보와 동일합니다.
+
+Project ID, Properties의 정보는 어디에?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``openstack server list`` 을 실행하면 ``ListServer`` 클래스의
+``take_action`` 메소드가 실행이 되고, server들의 정보를 가져옵니다. 이
+부분을 살펴보겠습니다.
+
+.. code:: python
+
+   class ListServer(command.Lister):
+       def take_action(self, parsed_args):
+               data = compute_client.servers.list(search_opts=search_opts,
+                                              marker=marker_id,
+                                              limit=parsed_args.limit)
+
+``compute_client.servers.list`` 를 통해 server들의 정보를 가져옵니다.
+``dir()`` 내장 함수는 어떤 객체를 인자로 넣어주면 해당 객체가 어떤
+변수와 메소드를 가지고 있는지 나열해줍니다.
+`참고 <https://wikidocs.net/10307>`__
+
+아래에서는 필요한 data 외는 삭제하여 포스팅하였습니다.
+
+.. code:: shell
+
+   (Pdb) p data
+   [<Server: joostance>, <Server: 90000e>, <Server: dev>]
+   (Pdb) p data[0].__class__
+   <class 'novaclient.v2.servers.Server'>
+   (Pdb) p dir(data[0])
+   ['HUMAN_ID', 'NAME_ATTR', 'OS-DCF:diskConfig', 'OS-EXT-AZ:availability_zone', 'OS-EXT-SRV-ATTR:host', 'OS-EXT-SRV-ATTR:hypervisor_hostname', 'OS-EXT-SRV-ATTR:instance_name', 'OS-EXT-STS:power_state', 'OS-EXT-STS:task_state', 'OS-EXT-STS:vm_state', 'OS-SRV-USG:launched_at', 'OS-SRV-USG:terminated_at','accessIPv4', 'accessIPv6','addresses', 'api_version', 'config_drive', 'created', 'flavor', 'hostId', 'human_id', 'id', 'image', 'key_name',  'name', 'networks', 'os-extended-volumes:volumes_attached', 'progress', 'request_ids', 'security_groups', 'tag_list', 'tenant_id', 'updated', 'user_id', 'x_openstack_request_ids']
+
+``compute_client.servers.list`` 를 통해 가져온 server의 정보는
+``novaclient.v2.servers.Server`` 클래스인 것을 알 수 있고, dir() 함수를
+통해 변수들을 볼 수 있습니다. 하지만 해당 객체에는 ``project_id`` 나
+``properties`` 정보는 가지고 있지 않습니다.
+
+``openstack server show [instanceName]`` 명령어에서는 ``project_id`` 나
+``properties`` 도 확인 할 수 있으므로, 해당 명령어에서는 해당 data를
+어떻게 가져오는지 알아봤습니다.
+
+``openstack server show [instanceName]`` 명령어는 ``ShowServer`` 의
+``take_action`` 메소드를 사용하여 server의 data를 가져옵니다.
+
+.. code:: python
+
+   class ShowServer(command.ShowOne):
+       def take_action(self, parsed_args):
+           compute_client = self.app.client_manager.compute
+           server = utils.find_resource(compute_client.servers,
+                                        parsed_args.server)
+
+           if parsed_args.diagnostics:
+               (resp, data) = server.diagnostics()
+               if not resp.status_code == 200:
+                   self.app.stderr.write(_(
+                       "Error retrieving diagnostics data\n"
+                   ))
+                   return ({}, {})
+           else:
+               data = _prep_server_detail(compute_client,
+                                          self.app.client_manager.image, server,
+                                          refresh=False)
+
+           return zip(*sorted(data.items()))
+
+``openstack server show dev`` 명령어를 실행한 뒤 data를 출력한
+모습입니다. 해당 data에는 ``project_id`` 와 ``properties`` 가
+존재합니다.
+
+.. code:: shell
+
+   (Pdb) p data
+   {'id': '0c2ceb17-4333-484f-9158-88da3c8ebd67', 'name': 'dev', 'status': 'ACTIVE', 'user_id': '413672a5e28b4dbb9a0dbc5285bacac9', 'hostId': '4f15df15234d5425e5f82d3402c3dcbb92348c531adce1cf080273ca', 'image': '', 'flavor': 'm1.nano (42)', 'created': '2020-08-12T16:38:49Z', 'updated': '2020-08-12T16:39:04Z', 'addresses': 'private=fd2f:eb32:c341:0:f816:3eff:fe75:8179, 10.0.0.53', 'accessIPv4': '', 'accessIPv6': '', 'OS-DCF:diskConfig': 'AUTO', 'progress': 0, 'OS-EXT-AZ:availability_zone': 'nova', 'config_drive': '', 'key_name': None, 'OS-SRV-USG:launched_at': '2020-08-12T16:39:04.000000', 'OS-SRV-USG:terminated_at': None, 'OS-EXT-SRV-ATTR:host': 'ubuntu', 'OS-EXT-SRV-ATTR:instance_name': 'instance-00000001', 'OS-EXT-SRV-ATTR:hypervisor_hostname': 'ubuntu', 'OS-EXT-STS:task_state': None, 'OS-EXT-STS:vm_state': 'active', 'OS-EXT-STS:power_state': 'Running', 'volumes_attached': "id='8a88230c-a821-4685-9afc-6eab20286ebd'", 'security_groups': "name='default'", 'properties': '', 'project_id': '4e37ed3493c24ba18dd7844c5e925bfb'}
+
+이를 통해 ``_prep_server_detail`` 메소드를 통해 ``project_id`` 와
+``properties`` 를 가져올 수 있는 것을 알았습니다.
+
+그래서 ``ListServer`` 의 ``take_action`` 메소드에서 server들의 data를
+가져올 때, ``_prep_server_detail`` 메소드를 통해 ``project_id`` 와
+``properties`` 를 가져오도록 구현하였습니다.
+
+.. code:: python
+
+    # class ListServer 의 def take_action       
+               for s in data:
+               more_data = _prep_server_detail(compute_client,
+                                          image_client, s,
+                                          refresh=False)
+               s.project_id = more_data["project_id"]
+               s.properties = more_data["properties"]
+
+.. _결론-1:
+
+결론
+~~~~
+
+.. figure:: images/openstack-server-list--c-ID-Name-Project_id-Launched_at.png
+   :alt: openstack-server-list–c-ID-Name-Project_id-Launched_at
+
+   openstack-server-list–c-ID-Name-Project_id-Launched_at

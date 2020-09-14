@@ -1,14 +1,11 @@
-=============
-첫 번째 Issue
-=============
-
-`OpenStack CLI - Add a few selectable fields to the “openstack server
-list” output <https://storyboard.openstack.org/#!/story/2007925>`__
+=========================================================================================
+[이슈] OpenStack CLI - Add a few selectable fields to the "openstack server list" output
+=========================================================================================
 
 Issue 소개
 ----------
 
-본 Issue는 ``openstack server list -c ""`` 명령어 사용시 더 많은 필드를
+본 `Issue <https://storyboard.openstack.org/#!/story/2007925>`_ 는 ``openstack server list -c ""`` 명령어 사용시 더 많은 필드를
 선택할 수 있도록 구현하는 Issue입니다.
 
 재현 방법
